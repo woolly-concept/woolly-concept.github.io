@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brighton Times</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css">
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" >
+	<link href="css/bootstrap.css" rel = "stylesheet">
+    <link href="css/customstyle.css" rel="stylesheet" type="text/css" >
+	<link href="css/costom_responsive.css" rel="stylesheet" type="text/css" >
+	
+	
+  </head>
+  <body>
+    
+
+    <header class="header">
+      <div class="header__inner">
+        <img class="header__logo" src="images/ifac_logo.png">
+        <h1 class="header__title">
+          MyFarm Report
+        </h1>
+		
+      </div>
+    </header>
+	
+	<!-- navigation menu -->
+		<div class="navbar navbar-default navbar-static-top">
+			<div class="my_nav dropdown">
+				
+				<button class="navbar-toggle" data-toggle="collapse" data-target=".navCollapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div class="collapse navbar-collapse navCollapse">
+				
+					<ul class=" nav navbar-nav ">
+						<li class="my_nav__item"><a href="index.html">Home</a></li>
+						<li class="my_nav__item"><a href="about.html">About</a></li>
+						<li class="my_nav__item"><a href="services.html">Services</a></li>
+						<li class="active"><a href="#">News</a></li>
+
+						
+					</ul>
+				
+				</div>
+			</div>
+		
+		
+		</div>
+
+
+    <main>
+		<section class="content">
+        
+        <section class="news recent-news">
+          <h2 class="news__title">Latest news </h2>
+          <ul>
+			<li class="snippet">
+              <img class="snippet__thumbnail" src="images/maxresdefault.jpg" alt="kult, kult">
+              <h3 class="snippet__title"><a href="#">Amazing new nr 1 - 01</a></h3>
+              <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </li>
+            <li class="snippet">
+              <img class="snippet__thumbnail" src="images/woolly_pig2.jpg" alt="kult">
+              <h3 class="snippet__title"><a href="#">Top od amazing news - 02</a></h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </li>
+			
+            <li class="snippet">
+              <img class="snippet__thumbnail" src="images/woolly_pig3.jpg" alt="kult">
+              <h3 class="snippet__title"><a href="#">You will not belive! - 03</a></h3>
+              <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </li>
+            <li class="snippet">
+              <img class="snippet__thumbnail" src="images/woolly_pig.jpg" alt="kult">
+              <h3 class="snippet__title"><a href="#">You must see it! 04</a></h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              </p>
+            </li>
+            
+            
+          </ul>
+        </section>
+      </section>
+
+      <!-- footer -->
+      <footer>
+	  <div ">
+			<div class="navbar navbar-link navbar-static-bottom">
+				<ul>
+				  <li class="my_footer__item"><a href="#">Contact us</a></li>
+				  <li class="my_footer__item"><a href="#">Do not contact us</a></li>
+				</ul>
+			</div>
+			
+		</div>
+		
+      </footer>
+    </main>
+	
+	
+	<script>
+		$(document).ready(function(){
+			$(".image").click(function(){
+				alert("it works!");
+			});
+		});
+	</script>
+	<!--
+		<script>
+		$(document).load(function(){
+			$('div.hidden).fadeIn(3000).removeClass("hidden");
+			};
+	</script>
+	
+	<script type="text/javascript">
+		$(window).load(function(){
+			$(document).ready(function () {
+			$("div.hidden").fadeIn(3000).removeClass("hidden");
+			});
+		});
+	</script>
+	
+	<script>
+		$(".fade").hide(0).delay(500).fadeIn(3000);
+	</script>
+	
+	-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	
+		
+  </body>
+</html>

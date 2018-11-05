@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFAC MyFarm Report</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet" type="text/css">
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" >
+    <link href="css/customstyle.css" rel="stylesheet" type="text/css" >
+	<link href="css/costom_responsive.css" rel="stylesheet" type="text/css" >
+	
+	<script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+	<!-- Add additional services that you want to use -->
+	
+	<script>
+	  // Initialize Firebase
+	  var config = {
+		apiKey: "AIzaSyAntPPyRcWhzaYe9xsEXVQFjEK5eJcYZKo",
+		authDomain: "sensiweb-7637d.firebaseapp.com",
+		databaseURL: "https://sensiweb-7637d.firebaseio.com",
+		projectId: "sensiweb-7637d",
+		storageBucket: "sensiweb-7637d.appspot.com",
+		messagingSenderId: "557894946510"
+	  };
+	  firebase.initializeApp(config);
+	</script>
+	<script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
+	<script src="https://www.gstatic.com/firebasejs/ui/3.4.1/firebase-ui-auth__en.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/3.4.1/firebase-ui-auth.css" />
+	
+	<script type="text/javascript">
+      // FirebaseUI config.
+	  var list = document.createElement('ul');
+		list.className = "snippet";
+      var uiConfig = {
+		callbacks: {
+		signInSuccessWithAuthResult: function(authResult) {
+			var user = authResult.user;
+			var credential = authResult.credential;
+			var isNewUser = authResult.additionalUserInfo.isNewUser;
+			var providerId = authResult.additionalUserInfo.providerId;
+			var operationType = authResult.operationType;
+			var displayName = user.displayName;
+			var email = user.email;
+			var emailVerified = user.emailVerified;
+			var uid = user.uid;
+			user.getIdToken().then(function(accessToken) {
+			//console.log("display name: ", displayName);
+
+			document.getElementById("firebaseui-auth-container").style.display = 'none'
+			document.getElementById("welcome_text").textContent = 'Welcome '+ displayName+" ::: "+email;
+
+				//document.getElementById('account-details').textContent = JSON.stringify({
+				//displayName: displayName,
+				//email: email,
+				//emailVerified: emailVerified,
+				//uid: uid
+				//}, null, '  ')
+			});
+			  //read reports
+			var db = firebase.database();
+			var storage = firebase.storage();
+			var storageRef = storage.ref();
+			var rootYears = db.ref('reports/years');
+		
+			 rootYears.once("value", function(snapshot){
+				snapshot.forEach(function(child){
+						console.log("yr: "+child.key+": "+child.val());
+						var year = child.key;
+						var item = document.createElement('li');
+									item.className = "snippet";
+						var thisYear = document.createElement('h3');
+							thisYear.className = "snippet__title";
+							thisYear.appendChild(document.createTextNode(year));
+							item.appendChild(thisYear)
+						var rootQuaters = db.ref('reports/years'+"/"+child.key);
+						rootQuaters.once("value", function(snapshot){
+							snapshot.forEach(function(child){
+							var quater = child.key;
+							console.log("qt: "+child.key+": "+child.val().doc);
+									var rootDocs = child.val().doc;
+									console.log("Y: "+year+", DOC name: "+rootDocs);
+									var urlDoc = child.val().url;
+									console.log("Y: "+year+", URL: "+urlDoc);
+									var thisUrl = document.createElement('p');
+									var createA = document.createElement('a');
+									
+										createA.setAttribute('href', urlDoc);
+										createA.setAttribute('target','_blank');
+										createA.appendChild(document.createTextNode(rootDocs));
+									thisUrl.appendChild(createA);
+									item.appendChild(thisUrl);
+									list.appendChild(item);
+									
+							
+							});
+						});
+						
+					});
+				});
+				
+				document.getElementById('reports_list').appendChild(list);
+			// Do something with the returned AuthResult.
+			return true;
+			},
+			signInFailure: function(error) {
+			// Some unrecoverable error occurred during sign-in.
+			return handleUIError(error);
+			},
+			uiShown: function() {
+				// The widget is rendered.
+				// Hide the loader.
+				document.getElementById('loader').style.display = 'none';
+			}
+		},
+		credentialHelper: firebaseui.auth.CredentialHelper.ACCOUNT_CHOOSER_COM,
+		// Query parameter name for mode.
+		queryParameterForWidgetMode: 'mode',
+		// Query parameter name for sign in success url.
+		queryParameterForSignInSuccessUrl: 'signInSuccessUrl',
+		// Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+		signInFlow: 'popup',
+		// signInSuccessUrl: 'services.html',
+		signInOptions: [
+			{
+			provider: firebase.auth.EmailAuthProvider.PROVIDER_ID,
+			// Whether the display name should be displayed in the Sign Up page.
+			requireDisplayName: true
+			}
+		],
+		// tosUrl and privacyPolicyUrl accept either url string or a callback function.
+		// Terms of service url/callback.
+		tosUrl: '<https://www.ifac.ie/>',
+		// Privacy policy url/callback.
+		privacyPolicyUrl: function() {
+		window.location.assign('https://www.ifac.ie/');
+		}
+	};
+	var ui = new firebaseui.auth.AuthUI(firebase.auth());
+		// The start method will wait until the DOM is loaded.
+		ui.start('#firebaseui-auth-container', uiConfig);
+	</script>
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/jquery.mobile-1.4.5.min.js"></script>
+	
+	</head>
+	<body>
+	
+	<header class="header">
+		<div class="header__inner">
+			<img class="header__logo" src="images/ifac_logo.png">
+			<h1 class="header__title">MyFarm Report</h1>
+		</div>
+	</header>
+	
+	<!-- navigation menu -->
+		<div class="navbar navbar-default navbar-static-top">
+			<div class="my_nav">
+				
+				<button class="navbar-toggle" data-toggle="collapse" data-target=".navCollapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div class="collapse navbar-collapse navCollapse">
+				
+					<ul class=" nav navbar-nav ">
+						<li class="my_nav__item"><a href="index.html">Home</a></li>
+						<li class="my_nav__item"><a href="about.html">About</a></li>
+						<li class="active"><a href="#">Services</a></li>
+						<li class="my_nav__item"><a href="something.html">News</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	<main>
+		<section class="content">
+
+			<section class="news recent-news">
+				<h2 id ="welcome_text" class="news__title">Log in to service</h2><br>
+				<div id="account-details"></div>
+				<div id="reports_list" ></div>
+				<div id="firebaseui-auth-container"></div>
+				<div id="loader">Loading...</div>
+			</section>
+		
+		</section>
+		<!-- footer -->
+		<footer>
+			<div class=" navbar-link navbar-static-bottom">	
+				<ul>
+				  <li class="my_footer__item"><a href="#">Contact us</a></li>
+				  <li class="my_footer__item"><a href="#">Do not contact us</a></li>
+				</ul>
+			
+			</div>
+		</footer>
+	</main>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="js/bootstrap.js"></script>
+
+	</body>
+</html>
